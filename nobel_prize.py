@@ -12,7 +12,7 @@ Skriv in H för att få fram hjälp texten och alla kategorier
 
 
 def main():
-    # Frågar användaren efter en str och anropar funktionen som gör det användaren vill
+    # Frågar användaren efter en string och anropar funktionen som gör det användaren vill
     print_help_text()
     while True:
         user_input = input(">").lower()
@@ -28,7 +28,7 @@ def main():
 
 
 def print_selected_nobel_prizes(result: dict):
-    # skriver ut all information som användaren har begärt och skickar 2 str till calculate_prize_share för att få
+    # skriver ut all information som användaren har begärt och skickar 2 strings till calculate_prize_share för att få
     # tillbaka en float
     for prize in result["nobelPrizes"]:
         prize_amount = prize["prizeAmount"]
@@ -56,8 +56,8 @@ def calculate_prize_share(prize_amount: str, andel: str) -> float:
 
 
 def check_user_input(user_input: str) -> dict:
-    # Kontrollerar om användaren har skrivit in en giltigt str om str är giltigt så skickas informationen till get_info
-    # annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
+    # Kontrollerar om användaren har skrivit in en giltigt string om string är giltigt så skickas informationen till
+    # get_info annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
     try:
         year, category = user_input.split()
         if year.isnumeric() and category.isalpha():

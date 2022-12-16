@@ -11,7 +11,7 @@ CATEGORIES = {"fysik": "phy",
 
 
 def get_info(year: str, category: str = None) -> Optional[dict]:
-    # skickar en förfrågan till api med den information som användaren angav
+    # skickar en förfrågan till api med den information som angavs till funktionen
     if category is not None:
         if category in CATEGORIES:
             category = CATEGORIES[category]
