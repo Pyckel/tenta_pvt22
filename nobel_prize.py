@@ -34,7 +34,7 @@ def print_selected_nobel_prizes(result: dict):
         prize_amount = prize["prizeAmount"]
         prize_amount_today = prize["prizeAmountAdjusted"]
         print(f"{prize['categoryFullName']['se']} prissumma {prize_amount} SEK")
-        print(f'Dagens värde på priset är {prize_amount_today}')
+        print(f'Dagens värde på priset är {prize_amount_today} SEK')
         for person in prize["laureates"]:
             if 'knownName' in person:
                 print(person['knownName']['en'])
