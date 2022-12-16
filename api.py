@@ -7,13 +7,12 @@ CATEGORIES = {"fysik": "phy",
        "fred": "pea",
        "medicin": "med"}
 
-def get_info(user_input):
-    try:
-        year, category = user_input.split()
+
+def get_info(year, category=None):
+    if category is not None:
         category = CATEGORIES[category]
         current_search = {"nobelPrizeYear": int(year), "nobelPrizeCategory": category}
-    except ValueError:
-        year = user_input
+    else:
         current_search = {"nobelPrizeYear": int(year)}
 
     res = requests.get("http://api.nobelprize.org/2.1/nobelPrizes", params=current_search).json()
