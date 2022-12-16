@@ -13,7 +13,7 @@ Skriv in H för att få fram hjälp texten och alla kategorier
 
 def main():
     # Frågar användaren efter en string och anropar funktionen som gör det användaren vill
-    print_help_text()
+
     while True:
         user_input = input(">").lower()
         if user_input == 'q':
@@ -85,4 +85,5 @@ def print_help_text():
 
 
 if __name__ == '__main__':
+    print_help_text()
     main()
