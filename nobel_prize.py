@@ -76,7 +76,7 @@ def check_user_input(user_input: str) -> dict:
 
 
 def print_help_text():
-    # Skriver ut hjälp texten och alla kategorier i terminalen när programmet startar eller användaren skriv in h
+    # Skriver ut hjälp texten och alla kategorier i terminalen
     print(HELP_STRING)
     print('Alla möjliga kategorier:')
     key_list = list(CATEGORIES.keys())
