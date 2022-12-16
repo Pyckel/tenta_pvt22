@@ -47,7 +47,7 @@ def print_selected_nobel_prizes(result: dict):
 
 
 def calculate_prize_share(prize_amount: str, andel: str) -> float:
-    # Beräknar fram en float till 3 decimaler från två str som in data och klarar att andel är ett fraktal
+    # Beräknar fram en float till 3 decimaler från två strings som in data och klarar att andel är ett fraktal
     if '/' in andel:
         andel = andel.split('/')[-1]
     prize = int(prize_amount) / int(andel)
