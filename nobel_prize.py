@@ -59,7 +59,7 @@ def check_user_input(user_input: str) -> dict:
     # Kontrollerar om användaren har skrivit in en giltigt string om string är giltigt så skickas informationen till
     # get_info annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
     try:
-        year, category = user_input.split()
+        year, category = user_input.split()[:2]
         if year.isnumeric() and category.isalpha():
             result = get_info(year, category)
         else:
