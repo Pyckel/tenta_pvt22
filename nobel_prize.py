@@ -80,8 +80,8 @@ def print_help_text():
     print(HELP_STRING)
     print('Alla möjliga kategorier:')
     key_list = list(CATEGORIES.keys())
-    for i in key_list:
-        print(i)
+    for key in key_list:
+        print(key)
 
 
 if __name__ == '__main__':
