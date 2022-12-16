@@ -22,9 +22,9 @@ def main():
         elif user_input == 'h':
             print_help_text()
         else:
-            res = check_user_input(user_input)
-            if res:
-                print_selected_nobel_prizes(res)
+            result = check_user_input(user_input)
+            if result:
+                print_selected_nobel_prizes(result)
 
 
 def print_selected_nobel_prizes(res: dict):
@@ -42,7 +42,7 @@ def print_selected_nobel_prizes(res: dict):
                 print(person['orgName']['en'])
             print(person['motivation']['en'])
             andel = person['portion']
-            print(f'Fick {calculate_prize_share(prize_amount, andel)} utav {prize_amount}')
+            print(f'Fick {calculate_prize_share(prize_amount, andel)} SEK utav {prize_amount} SEK')
             print('-' * 25)
 
 
@@ -60,15 +60,15 @@ def check_user_input(user_input: str) -> dict:
     # annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
     try:
         year, category = user_input.split()
-        res = get_info(year, category)
+        result = get_info(year, category)
     except ValueError:
         if user_input.isnumeric():
             year = user_input
-            res = get_info(year)
+            result = get_info(year)
         else:
             print('Skriv in bara ett årtal eller årtal mellanslag kategori')
-            res = None
-    return res
+            result = None
+    return result
 
 
 def print_help_text():

@@ -16,5 +16,5 @@ def get_info(year: str, category: str = None) -> dict:
     else:
         current_search = {"nobelPrizeYear": int(year)}
 
-    res = requests.get("http://api.nobelprize.org/2.1/nobelPrizes", params=current_search).json()
-    return res
+    result = requests.get("http://api.nobelprize.org/2.1/nobelPrizes", params=current_search).json()
+    return result
