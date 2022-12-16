@@ -60,7 +60,11 @@ def check_user_input(user_input: str) -> dict:
     # annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
     try:
         year, category = user_input.split()
-        result = get_info(year, category)
+        if year.isnumeric() and category.isalpha():
+            result = get_info(year, category)
+        else:
+            print('Skriv in bara ett årtal eller årtal mellanslag kategori')
+            result = None
     except ValueError:
         if user_input.isnumeric():
             year = user_input
