@@ -2,10 +2,6 @@ from api import get_info, CATEGORIES
 
 # Simon Söder
 
-# Tips: använd sidan nedan för att se vilken data vi får tillbaks och hur apiet fungerar
-# vi använder oss enbart av /nobelPrizes
-# Dokumentation, hjälp samt verktyg för att testa apiet fins här:
-# https://app.swaggerhub.com/apis/NobelMedia/NobelMasterData/2.1
 
 HELP_STRING = """
 Ange ett år och fält
@@ -16,46 +12,42 @@ Skriv in H för att få fram hjälp texten och alla kategorier
 
 
 def main():
-    help_text()
+    # Frågar användaren efter en str och anropar funktionen som gör det användaren vill
+    print_help_text()
     while True:
-
         user_input = input(">").lower()
         if user_input == 'q':
             print('Stänger ner programmet')
             break
         elif user_input == 'h':
-            help_text()
+            print_help_text()
         else:
-            res = interpret_user_input(user_input)
-
-            # TODO 20p Skriv ut hur mycket pengar varje pristagare fick, tänk på att en del priser delas mellan flera mottagare, skriv ut både i dåtidens pengar och dagens värde
-        #   Skriv ut med tre decimalers precision. exempel 534515.123
-        #   Skapa en funktion som hanterar uträkningen av prispengar och skapa minst ett enhetestest för den funktionen
-        #   Tips, titta på variabeln andel
-        # Feynman fick exempelvis 1/3 av priset i fysik 1965, vilket borde gett ungefär 282000/3 kronor i dåtidens penningvärde
-            print_selected_nobel_prize(res)
+            res = check_user_input(user_input)
+            if res:
+                print_selected_nobel_prizes(res)
 
 
-def print_selected_nobel_prize(res):
-    if res:
-        for prize in res["nobelPrizes"]:
-            prize_amount = prize["prizeAmount"]
-            prize_amount_today = prize["prizeAmountAdjusted"]
-            print(f"{prize['categoryFullName']['se']} prissumma {prize_amount} SEK")
-            print(f'Dagens värde på prise är {prize_amount_today}')
+def print_selected_nobel_prizes(res: dict):
+    # skriver ut all information som användaren har begärt och skickar 2 str till calculate_prize_share för att få
+    # tillbaka en float
+    for prize in res["nobelPrizes"]:
+        prize_amount = prize["prizeAmount"]
+        prize_amount_today = prize["prizeAmountAdjusted"]
+        print(f"{prize['categoryFullName']['se']} prissumma {prize_amount} SEK")
+        print(f'Dagens värde på priset är {prize_amount_today}')
+        for person in prize["laureates"]:
+            if 'knownName' in person:
+                print(person['knownName']['en'])
+            else:
+                print(person['orgName']['en'])
+            print(person['motivation']['en'])
+            andel = person['portion']
+            print(f'Fick {calculate_prize_share(prize_amount, andel)} utav {prize_amount}')
+            print('-' * 25)
 
-            for person in prize["laureates"]:
-                if 'knownName' in person:
-                    print(person['knownName']['en'])
-                else:
-                    print(person['orgName']['en'])
-                print(person['motivation']['en'])
-                andel = person['portion']
-                print(f'Fick {calculate_prize_share(prize_amount, andel)} utav {prize_amount}')
-                print('-' * 25)
 
-
-def calculate_prize_share(prize_amount, andel):
+def calculate_prize_share(prize_amount: str, andel: str) -> float:
+    # Beräknar fram en float till 3 decimaler från två str som in data och klarar att andel är ett fraktal
     if '/' in andel:
         andel = andel.split('/')[-1]
     prize = int(prize_amount) / int(andel)
@@ -63,7 +55,9 @@ def calculate_prize_share(prize_amount, andel):
     return prize
 
 
-def interpret_user_input(user_input):
+def check_user_input(user_input: str) -> dict:
+    # Kontrollerar om användaren har skrivit in en giltigt str om str är giltigt så skickas informationen till get_info
+    # annars så skrivs det ut ett felmeddelande till användaren och hur giltigt inmatning ser ut
     try:
         year, category = user_input.split()
         res = get_info(year, category)
@@ -77,7 +71,8 @@ def interpret_user_input(user_input):
     return res
 
 
-def help_text():
+def print_help_text():
+    # Skriver ut hjälp texten och alla kategorier i terminalen när programmet startar eller användaren skriv in h
     print(HELP_STRING)
     print('Alla möjliga kategorier:')
     key_list = list(CATEGORIES.keys())
