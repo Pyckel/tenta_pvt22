@@ -27,10 +27,10 @@ def main():
                 print_selected_nobel_prizes(result)
 
 
-def print_selected_nobel_prizes(res: dict):
+def print_selected_nobel_prizes(result: dict):
     # skriver ut all information som användaren har begärt och skickar 2 str till calculate_prize_share för att få
     # tillbaka en float
-    for prize in res["nobelPrizes"]:
+    for prize in result["nobelPrizes"]:
         prize_amount = prize["prizeAmount"]
         prize_amount_today = prize["prizeAmountAdjusted"]
         print(f"{prize['categoryFullName']['se']} prissumma {prize_amount} SEK")
